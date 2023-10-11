@@ -127,6 +127,7 @@ def obtener_libros():
 def crear_libro():
     try:
         data = request.json  # Se espera un JSON con los datos del libro
+        data['estado'] = "disponible" # Configurar manualmente el rol como 2
         result = db.Libros.insert_one(data)
         return "Libro creado con ID: " + str(result.inserted_id), 201  # 201 significa "Creado"
     except Exception as e:
