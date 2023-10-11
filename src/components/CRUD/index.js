@@ -71,6 +71,7 @@ const CRUD = () => {
   return (
     <div>
       <h2>Lista de Libros</h2>
+      <div className="table-container">
       <table>
         <thead>
           <tr>
@@ -103,6 +104,7 @@ const CRUD = () => {
           
         </tbody>       
       </table>
+      </div>
       {modalVisible && (
         <EditarLibroModal
           libroId={bookToEdit}
