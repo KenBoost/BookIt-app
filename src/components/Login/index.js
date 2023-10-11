@@ -1,13 +1,27 @@
 import React from 'react';
+import './index.scss';
 
-const Login = () => {
-  // Aquí puedes definir el contenido del formulario de inicio de sesión
+
+const Login = ({ onClose }) => {
   return (
-    <div>
-      <h2>Inicio de Sesión</h2>
-      {/* Agrega los campos de usuario y contraseña y el botón de inicio de sesión */}
+    <div className="login-modal">
+      <div className="login-content">
+        <button className="close-button" onClick={onClose}>
+          &times;
+        </button>
+        <h2>Iniciar Sesión</h2>
+        <form>
+          <label htmlFor="username">Usuario:</label>
+          <input type="text" id="username" name="username" />
+          <label htmlFor="password">Contraseña:</label>
+          <input type="password" id="password" name="password" />
+          <button type="submit">Iniciar Sesión</button>
+        </form>
+      </div>
     </div>
   );
 };
 
 export default Login;
+
+
