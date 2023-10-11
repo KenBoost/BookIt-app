@@ -27,12 +27,13 @@ def ruta_raiz():
 def crear_usuario():
     try:
         data = request.json  # Se espera un JSON con los datos del usuario
-        password = data['contrasena']  # Obtén la contraseña del JSON
+        data['rol'] = 2  # Configurar manualmente el rol como 2
+        password = data['contrasena_hash']  # Obtén la contraseña del JSON
 
         # Encripta la contraseña
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
-        data['contrasena'] = hashed_password  # Reemplaza la contraseña en el JSON
+        data['contrasena_hash'] = hashed_password  # Reemplaza la contraseña en el JSON
 
         result = db.Usuarios.insert_one(data)
         return "Usuario creado con ID: " + str(result.inserted_id), 201  # 201 significa "Creado"
@@ -45,8 +46,8 @@ def obtener_usuario(id):
     usuario = db.Usuarios.find_one({"_id": id})
     if usuario:
         # Desencriptar la contraseña
-        usuario['contrasena'] = bcrypt.checkpw(
-            usuario['contrasena'].encode('utf-8'),  # Contraseña hasheada almacenada en la base de datos
+        usuario['contrasena_hash'] = bcrypt.checkpw(
+            usuario['contrasena_hash'].encode('utf-8'),  # Contraseña hasheada almacenada en la base de datos
             bcrypt.gensalt()  # Genera un salt para verificar la contraseña
         )
         return jsonify(usuario), 200  # 200 significa "OK"
