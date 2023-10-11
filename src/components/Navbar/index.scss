@@ -1,43 +1,50 @@
+/* Navbar styles */
 .navbar {
-    background-color: #333; /* Color de fondo del navbar */
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white; /* Color del texto en el navbar */
+  background-color: #333; // Color de fondo de la barra de navegación
+  color: #fff; // Color del texto
+  padding: 10px 20px;
+}
+
+/* Navbar list styles */
+.navbar-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Navbar item styles */
+.navbar-item {
+  text-align: center;
+
+  // Icon styles
+  .svg-inline--fa {
+    font-size: 1.5rem; // Tamaño del ícono
+    margin-bottom: 5px;
   }
-  
-  .navbar-list {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
+
+  // Active link styles
+  &.active {
+    border-bottom: 2px solid #fff; // Línea inferior para el enlace activo
   }
-  
-  .navbar-item {
-    margin: 0 15px;
+
+  // Hover effect
+  a:hover {
+    color: rgb(16, 154, 151); // Cambiar color del texto al pasar el mouse
   }
-  
-  .navbar-item a {
+
+  // Estilo del enlace
+  a {
+    color: #fff; // Color del enlace (blanco)
+    font-size: 2rem; // Tamaño de letra mediano
     text-decoration: none;
-    color: white; /* Color de los enlaces */
-    transition: color 0.3s; /* Efecto de transición en el color al hacer hover */
+    font-weight: bold;
   }
-  
-  .navbar-item a:hover {
-    color: #ff6600; /* Color al hacer hover en los enlaces */
-  }
-  
-  .social-icons {
-    a {
-      color: white;
-      text-decoration: none;
-      margin-left: 10px;
-      transition: color 0.3s; /* Efecto de transición en el color al hacer hover */
-    }
-  
-    a:hover {
-      color: #ff6600; /* Color al hacer hover en los íconos de redes sociales */
-    }
-  }
-  
+
+  // Padding and margin for items
+  padding: 10px;
+  margin: 0 5px;
+
+  // Transition for smooth animation
+  transition: color 0.3s, border-bottom 0.3s;
+}

@@ -45,18 +45,6 @@ const Navbar = () => {
           </NavLink>
         </li>
       </ul>
-
-      <div className="social-icons">
-        <a href="tu-link-de-LinkedIn">
-          <FontAwesomeIcon icon={faLinkedin} />
-        </a>
-        <a href="tu-link-de-GitHub">
-          <FontAwesomeIcon icon={faGithub} />
-        </a>
-        <a href="tu-link-de-Instagram">
-          <FontAwesomeIcon icon={faInstagram} />
-        </a>
-      </div>
     </nav>
   )
 }
