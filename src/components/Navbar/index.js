@@ -1,17 +1,22 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLinkedin, faGithub, faInstagram, } from '@fortawesome/free-brands-svg-icons'
 import { faHome, faUser, faRightToBracket, faCog} from '@fortawesome/free-solid-svg-icons';
 
 import { Link, NavLink } from 'react-router-dom'
 import Login from '../Login' // Importa el componente de inicio de sesión
+import Register from '../Register'
 import './index.scss'
 
 const Navbar = () => {
   const [showLogin, setShowLogin] = useState(false); // Estado para controlar la visibilidad del formulario de inicio de sesión
+  const [showRegister, setShowRegister] = useState(false);
 
   const toggleLogin = () => {
     setShowLogin(!showLogin); // Alternar la visibilidad del formulario de inicio de sesión
+  };
+  
+  const toggleRegister = () => {
+    setShowRegister(!showRegister); // Alternar la visibilidad del formulario de registro
   };
 
   return (
@@ -19,30 +24,27 @@ const Navbar = () => {
       <ul className="navbar-list">
         <li className="navbar-item">
           <NavLink to="/" activeClassName="active" exact>
-            <FontAwesomeIcon icon={faHome} />
             Inicio
           </NavLink>
         </li>
         <li className="navbar-item">
-          <NavLink to="/perfil" activeClassName="active">
-            <FontAwesomeIcon icon={faCog} />
+          <NavLink to="/perfil" activeClassName="active">      
             Mantenimientos
           </NavLink>
         </li>
         <li className="navbar-item">
-          <NavLink to="/perfil" activeClassName="active">
-            <FontAwesomeIcon icon={faUser} />
+          <NavLink to="/perfil" activeClassName="active">  
             Perfil
           </NavLink>
         </li>
         <li className="navbar-item">
-          <button onClick={toggleLogin}>
-            <FontAwesomeIcon icon={faRightToBracket} />
+          <button onClick={toggleLogin}>         
             Login
           </button>
         </li>
       </ul>
-      {showLogin && <Login onClose={toggleLogin} />} {/* Muestra el formulario de inicio de sesión si showLogin es true */}
+      {showLogin && <Login onClose={toggleLogin} onRegisterClick={toggleRegister} />}
+      {showRegister && <Register onClose={toggleRegister} />}
     </nav>
   );
 };

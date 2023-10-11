@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 
 
-const Login = ({ onClose }) => {
+const Login = ({ onClose, onRegisterClick }) => {
   return (
     <div className="login-modal">
       <div className="login-content">
@@ -17,6 +17,7 @@ const Login = ({ onClose }) => {
           <input type="password" id="password" name="password" />
           <button type="submit">Iniciar Sesión</button>
         </form>
+        <p>No tienes cuenta? <button className='register-button' onClick={onRegisterClick}>Regístrate</button></p>
       </div>
     </div>
   );
