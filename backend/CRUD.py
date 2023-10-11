@@ -2,6 +2,8 @@
 from flask import Flask, jsonify, request
 from pymongo import MongoClient, errors
 from bson import ObjectId
+from flask_cors import CORS
+
 import bcrypt
 
 #Conexion a la BD
@@ -27,18 +29,26 @@ def ruta_raiz():
 def crear_usuario():
     try:
         data = request.json  # Se espera un JSON con los datos del usuario
-        data['rol'] = 2  # Configurar manualmente el rol como 2
-        password = data['contrasena']  # Obtén la contraseña del JSON
+
+        # Asegúrate de tener una copia del JSON original antes de eliminar la contraseña normal
+        data_original = data.copy()
+
+        # Elimina la contraseña normal del JSON
+        del data['contrasena']
+
+        password = data_original['contrasena']  # Obtén la contraseña del JSON original
 
         # Encripta la contraseña
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
         data['contrasena_hash'] = hashed_password  # Reemplaza la contraseña en el JSON
-
+        
+        data['rol'] = 2  # Configurar manualmente el rol como 2
         result = db.Usuarios.insert_one(data)
         return "Usuario creado con ID: " + str(result.inserted_id), 201  # 201 significa "Creado"
     except Exception as e:
         return str(e), 400  # 400 significa "Solicitud incorrecta"
+
 
 # Obtener un usuario por ID
 @app.route('/obtener_usuario/<id>', methods=['GET'])
@@ -221,6 +231,10 @@ def borrar_reserva(id):
         return "Reserva borrada", 200  # 200 significa "OK"
     else:
         return "Reserva no encontrada", 404  # 404 significa "No encontrada"
+
+#-----------------------------------------------------------------------
+#CROSS ORIGINS-----------------------------------------------------------
+cors = CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
 
 
 #------------------------------------------------------------------------
