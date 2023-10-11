@@ -18,7 +18,26 @@ db = client['libreria-bookit']
 def ruta_raiz():
     return "¡Bienvenido a la aplicación Flask!"
 
-
+#Login------------------------------------------------------------------------------
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    correo = data.get('correo_electronico')
+    contrasena = data.get('contrasena').encode('utf-8')
+   
+    usuario = db.Usuarios.find_one({"correo_electronico": correo})
+    if usuario:
+        contrasena_hash = usuario.get('contrasena_hash', '')  # Contraseña hasheada almacenada en la base de datos
+    
+        if bcrypt.checkpw(contrasena, contrasena_hash.encode('utf-8')):
+           
+            del usuario['contrasena_hash']
+            usuario['_id'] = str(usuario['_id'])
+            return jsonify(usuario), 200  # 200 significa "OK"
+        else:
+            return "Contraseña incorrecta", 401  # 401 significa "No autorizado"
+    else:
+        return "Usuario no encontrado", 404  # 404 significa "No encontrado"
 
 ## ----------------------------------------------------------------------------------
 ## USUARIOS -------------------------------------------------------------------------
@@ -242,4 +261,4 @@ cors = CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
 #Correr la app-----------------------------------------------------------
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

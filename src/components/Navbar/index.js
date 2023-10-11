@@ -5,6 +5,7 @@ import { faHome, faUser, faRightToBracket, faCog} from '@fortawesome/free-solid-
 import { Link, NavLink } from 'react-router-dom'
 import Login from '../Login' // Importa el componente de inicio de sesión
 import Register from '../Register'
+import Profile from '../Profile'
 import './index.scss'
 
 const Navbar = () => {
