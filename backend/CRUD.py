@@ -28,7 +28,7 @@ def crear_usuario():
     try:
         data = request.json  # Se espera un JSON con los datos del usuario
         data['rol'] = 2  # Configurar manualmente el rol como 2
-        password = data['contrasena_hash']  # Obtén la contraseña del JSON
+        password = data['contrasena']  # Obtén la contraseña del JSON
 
         # Encripta la contraseña
         salt = bcrypt.gensalt()
