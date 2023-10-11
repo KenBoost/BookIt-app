@@ -3,15 +3,13 @@ import axios from 'axios';
 import './index.scss';
 import Swal from 'sweetalert2';
 import { useUser } from '../UserProvider'; 
-import { useHistory } from 'react-router-dom'; // Importa useHistory
-
-
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({ onClose, onRegisterClick }) => {
   const [correoElectronico, setCorreoElectronico] = useState('');
   const [contrasena, setContrasena] = useState('');
   
-  const history = useHistory(); // Obtiene el objeto history para redirección
+  const navigate = useNavigate(); //para redireccionar a otras paginas
   const { setUser } = useUser(); // Obtiene la función para actualizar el usuario
 
   
@@ -29,10 +27,14 @@ const Login = ({ onClose, onRegisterClick }) => {
       const response = await axios.post('http://localhost:5000/login', data);
 
       if (response.status === 200) {
+        console.log('Respuesta exitosa con código 200');
         const usuario = response.data;
         // Hacer algo con el usuario, como almacenarlo en el estado de tu aplicación
         setUser(usuario);
-        history.push('/profile');
+        console.log('Llamando a navigate');
+        navigate('./profile');
+
+        onClose();
       } else {    
         Swal('Error', 'No se pudo iniciar sesión, revise sus datos!', 'error');
       }

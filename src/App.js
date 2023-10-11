@@ -12,18 +12,20 @@ import "./App.scss";
 
 function App() {
   return (
+    <UserProvider>
     <Router>
       <Routes>
-        <UserProvider>
+       
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/crud" element={<CRUD />} />
             <Route path="/profile" element={<Profile />} />
             {/* Otras rutas y componentes según sea necesario */}
           </Route>
-        </UserProvider>
+      
       </Routes>
     </Router>
+    </UserProvider>
   );
 }
 
