@@ -1,0 +1,91 @@
+/* Mantenimientos.scss */
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 20px 0;
+    font-size: 1.6rem;
+    border: 1px solid #ccc;
+  
+    th {
+      background-color: #f5f5f5;
+      padding: 12px;
+      text-align: left;
+    }
+  
+    td {
+      padding: 12px;
+      border: 1px solid #ccc;
+    }
+  
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  }
+  
+  /* Estilos para los botones de acción */
+  button {
+    background: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 1.4rem;
+    margin-right: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background: #0056b3;
+    }
+  
+    &.eliminar {
+      background: #dc3545;
+      &:hover {
+        background: #c82333;
+      }
+    }
+  }
+  
+  /* Estilos para el formulario de agregar nuevo libro */
+  h2 {
+    font-size: 2rem;
+    margin-top: 20px;
+  }
+  
+  input {
+    margin: 4px 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.6rem;
+  }
+  
+  /* Estilos para el título y botón "Agregar Libro" */
+  h2 {
+    font-size: 2rem;
+    margin: 20px 0;
+  }
+  
+  button.agregar {
+    background: #28a745;
+    &:hover {
+      background: #218838;
+    }
+  }
+  
+  /* Estilos para toda la página de Mantenimientos */
+  .mantenimientos {
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Estilos para la página principal (Mantenimientos) */
+  .mantenimientos-page {
+    margin: 20px;
+  }
+  

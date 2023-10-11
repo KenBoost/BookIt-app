@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import EditarLibroModal from './updatemodal';
 import "./index.scss";
 
 const CRUD = () => {
   const [libros, setLibros] = useState([]);
-  const [nuevoLibro, setNuevoLibro] = useState({ titulo: "", autor: "" });
+  const [nuevoLibro, setNuevoLibro] = useState({ titulo: '', autor: '', genero: '', ano_publicacion: '', estado: '' });
+  
+  const [modalVisible, setModalVisible] = useState(false);
+  const [bookToEdit, setBookToEdit] = useState(null);
 
   // Función para cargar la lista de libros desde la API
   const cargarLibros = async () => {
@@ -24,26 +28,91 @@ const CRUD = () => {
     } catch (error) {
       console.error("Error al agregar un nuevo libro:", error);
     }
+    setNuevoLibro({ titulo: '', autor: '', genero: '', ano_publicacion: '', estado: '' });
+  };
+
+  //Eliminar libro
+  const eliminarLibro = async (libroId) => {
+    try {
+      await axios.delete(`http://localhost:5000/borrar_libro/${libroId}`);
+      cargarLibros();
+    } catch (error) {
+      console.error('Error al eliminar el libro:', error);
+    }
   };
 
   // Cargar la lista de libros cuando el componente se monta
   useEffect(() => {
     cargarLibros();
   }, []);
+ 
 
+
+  //---------------------------------------------------------------------------
+  //TODO LO DE EDITAR ----------------------------------
+  //----------------------------------------------------------------------------
+
+  const handleSaveEdit = (editedBook) => {
+    axios
+      .put(`http://localhost:5000/actualizar_libro/${bookToEdit}`, editedBook)
+      .then((response) => {
+        setModalVisible(false);
+        cargarLibros(); // Recarga la lista después de editar
+      })
+      .catch((error) => {
+        console.error('Error al actualizar el libro:', error);
+      });
+  };
+
+  const handleEditClick = (bookId) => {
+    setBookToEdit(bookId);
+    setModalVisible(true);
+  };
   return (
     <div>
       <h2>Lista de Libros</h2>
-      <ul>
-        {libros.map((libro) => (
-          <li key={libro.id}>
-            Título: {libro.titulo} - Autor: {libro.autor} - Género:
-            {libro.genero} - Año de Publicación: {libro.ano_publicacion} -
-            Estado: {libro.estado}
-          </li>
-        ))}
-      </ul>
-
+      <table>
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Género</th>
+            <th>Año de Publicación</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {libros.map((libro) => (
+            <tr key={libro._id}>
+              <td>{libro.titulo}</td>
+              <td>{libro.autor}</td>
+              <td>{libro.genero}</td>
+              <td>{libro.ano_publicacion}</td>
+              <td>{libro.estado}</td>
+              <td>
+                <button onClick={() => handleEditClick(libro._id)}>
+                  Editar
+                </button>
+                <button onClick={() => eliminarLibro(libro._id)}>
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}       
+          
+        </tbody>       
+      </table>
+      {modalVisible && (
+        <EditarLibroModal
+          libroId={bookToEdit}
+          onSave={(editedBook) => {
+            // Manejar la edición del libro aquí
+            setModalVisible(false); // Cierra el modal después de editar
+          }}
+          onClose={() => setModalVisible(false)} // Cierra el modal
+        />
+      )}
       <h2>Agregar Nuevo Libro</h2>
       <input
         type="text"
