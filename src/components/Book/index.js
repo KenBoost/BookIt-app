@@ -22,7 +22,7 @@ const Book = ({ bookTitle, onClose, onReserve }) => {
           &times;
         </button>
         <h2>Reservar Libro: {bookTitle}</h2>
-        <p>Selecciona la fecha de entrega:</p>
+        <label >Fecha de entrega:</label>
         <input
           type="date"
           value={selectedDate}

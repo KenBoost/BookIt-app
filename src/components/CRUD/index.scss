@@ -2,10 +2,11 @@
 
 /* Estilos para la tabla */
 .table-container{
-  max-height: 300px;
+  max-height: 276px;
   overflow-y: auto;
   width: 90%;
   margin: auto;
+  
 }
 
 table {
@@ -15,11 +16,11 @@ table {
     margin: 0;
     font-size: 1.6rem;
     border: 1px solid #ccc;
-    max-height: 300px; 
+    max-height: 276px; 
      overflow-y: auto; 
   
     th {
-      background-color: #f5f5f5;
+      background-color: #ffffff;
       padding: 12px;
       text-align: left;
     }
@@ -29,10 +30,11 @@ table {
       border: 1px solid #ccc;
       border-width: 1px 0px; /* Borra los bordes verticales */
       text-align: left;
+      border-radius: 5px;
     }
   
     tr {
-      background-color: #f2f2f2;
+      background-color: #ffffff;
     }
   }
   

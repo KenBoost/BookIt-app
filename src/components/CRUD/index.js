@@ -86,7 +86,7 @@ const CRUD = () => {
             <th>Autor</th>
             <th>Género</th>
             <th>Año de Publicación</th>
-            <th>Estado</th>
+            <th>Disponibilidad</th>
             <th>Acciones</th>
           </tr>
         </thead>
