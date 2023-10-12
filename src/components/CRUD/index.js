@@ -78,7 +78,7 @@ const CRUD = () => {
   if (user && user.rol === 1) {  
   return (
     <div>
-      <h2>Lista de Libros</h2>
+      <h2>Lista de Libros en el Sistema</h2>
       <div className="table-container">
         <table>
           <thead>
@@ -166,7 +166,7 @@ const CRUD = () => {
   } else {
     // Redirigir a una página de acceso no autorizado u otra acción
     navigate('/unauthorized');
-    //return null;
+    return null;
   }
 
 };

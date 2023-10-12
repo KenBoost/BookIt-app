@@ -42,13 +42,21 @@
         font-size: 1.5rem;
         color: white;
       }
+
+      p{
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
   
       input {
         width: 90%;
         padding: 10px;
         margin-bottom: 20px;
         border: 1px solid #ccc;
+        font-family: 'Coolvetica' !important;
+        font-weight: normal;
         border-radius: 4px;
+        font-size: 20px;
       }
   
       .modal-buttons {

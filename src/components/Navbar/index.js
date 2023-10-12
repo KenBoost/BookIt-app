@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import { useUser } from '../UserProvider'; 
-
 import { NavLink } from 'react-router-dom'
 import Login from '../Login' // Importa el componente de inicio de sesión
 import Register from '../Register'
@@ -14,9 +13,9 @@ const Navbar = () => {
   const [showRegister, setShowRegister] = useState(false);
   const navigate = useNavigate(); //para redireccionar a otras paginas
 
-  const { isLoggedIn, setUser, setIsLoggedIn } = useUser();
+  const { user, isLoggedIn, setUser, setIsLoggedIn } = useUser();
 
-  
+
   const handleLogout = () => {
     // ...otros pasos de logout...
     setUser(null);
@@ -40,7 +39,7 @@ const Navbar = () => {
           Inicio
         </NavLink>
       </li>
-      {isLoggedIn && (
+      {isLoggedIn && user.rol === 1 && (
         <li className="navbar-item nav-link-ltr">
           <NavLink to="/crud" activeclassname="active">
             Mantenimientos

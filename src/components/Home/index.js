@@ -44,7 +44,7 @@ const Home = () => {
             <p>Autor: {libro.autor}</p>
             <p>Género: {libro.genero}</p>
             <p>Año de Publicación: {libro.ano_publicacion}</p>
-            <p>Se encuentra {libro.estado}</p>
+            <p style={{fontWeight:'700'}}>Se encuentra {libro.estado}</p>
             {isLoggedIn ? ( 
               <button
                 onClick={() => toggleBook(libro.titulo, libro._id)}

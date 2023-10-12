@@ -38,14 +38,15 @@
   }
 
   .botonlogout{
-    font: 300  'Helvetica Neue', sans-serif !important;
+    font-family: 'Coolvetica' !important;
+    font-weight: 300;
     font-size: 1.8rem;
     background: white;
     color: black;
   }
 
   .botonlogout:hover{
-    background: rgb(89, 108, 220);
+    background: rgb(204, 93, 8);
     color: white;
    
   }

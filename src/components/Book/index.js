@@ -56,9 +56,9 @@ const Book = ({ bookTitle, bookId, onClose, onReserve, reloadBooks }) => {
         <button className="close-button" onClick={onClose}>
           &times;
         </button>
-        <h2>Reservar Libro:</h2>
+        <h2>Reservar el Libro:</h2>
         <h3>{bookTitle}</h3>
-       
+        <p>Seleccione la fecha de devolución:</p>
         <input
           type="date"
           value={selectedDate}
