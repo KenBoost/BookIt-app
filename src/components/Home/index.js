@@ -3,15 +3,15 @@ import React, { useState, useEffect } from "react";
 import { useUser } from '../UserProvider'; 
 import axios from "axios";
 import './index.scss'
-import Book from '../Book' // Importa el componente de inicio de sesión
-
+import Book from '../Book' 
 
 const Home = () => {
   const [libros, setLibros] = useState([]);
-  const [showBook, setShowBook] = useState(false); // Estado para controlar la visibilidad del formulario de inicio de sesión
+  const [showBook, setShowBook] = useState(false); 
+  const [selectedBook, setSelectedBook] = useState({ title: '', id: '' }); // Estado para almacenar el libro seleccionado
 
-  
   const { isLoggedIn } = useUser();
+ 
   // Función para cargar la lista de libros desde la API
   const cargarLibros = async () => {
     try {
@@ -21,11 +21,14 @@ const Home = () => {
       console.error("Error al cargar la lista de libros:", error);
     }
   };
- 
 
-  const toggleBook = () => {
-    setShowBook(!showBook); // Alternar la visibilidad del formulario de inicio de sesión
+
+  const toggleBook = (bookTitle, bookId) => {
+    setShowBook(!showBook);
+    setSelectedBook({ title: bookTitle, id: bookId });
+
   };
+  
   // Cargar la lista de libros cuando el componente se monta
   useEffect(() => {
     cargarLibros();
@@ -44,10 +47,11 @@ const Home = () => {
             <p>Año de Publicación: {libro.ano_publicacion}</p>
             <p>Estado: {libro.estado}</p>
             <br></br>        
-              <button  onClick={toggleBook} className="reservar-button">Reservar</button>
+              <button  onClick={() => toggleBook(libro.titulo, libro._id)} className="reservar-button">Reservar</button>
               <p>Inicie sesión para reservar!</p>
               {showBook && (
-             <Book onClose={toggleBook} />
+              <Book bookTitle={selectedBook.title} bookId={selectedBook.id} onClose={toggleBook} />
+
               )} 
           </div>      
         ))}

@@ -27,14 +27,11 @@ const Login = ({ onClose, onRegisterClick }) => {
       const response = await axios.post('http://localhost:5000/login', data);
 
       if (response.status === 200) {
-        console.log('Respuesta exitosa holaaa');
-        const usuario = response.data;
         
+        const usuario = response.data;      
         setUser(usuario);
-        setIsLoggedIn(true);
-        console.log('Llamando a navigate');
+        setIsLoggedIn(true);   
         navigate('./profile');
-
         onClose();
       } else {    
         Swal('Error', 'No se pudo iniciar sesión, revise sus datos!', 'error');

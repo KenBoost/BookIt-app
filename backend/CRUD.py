@@ -13,11 +13,6 @@ app = Flask(__name__)
 client = MongoClient("mongodb://127.0.0.1:27017/")
 db = client['libreria-bookit']
 
-#Root
-@app.route('/', methods=['GET'])
-def ruta_raiz():
-    return "¡Bienvenido a la aplicación Flask!"
-
 #Login------------------------------------------------------------------------------
 @app.route('/login', methods=['POST'])
 def login():
@@ -214,12 +209,13 @@ def borrar_libro(id):
 # Crear una reserva
 @app.route('/crear_reserva', methods=['POST'])
 def crear_reserva():
-    try:
-        data = request.json  # Se espera un JSON con los datos de la reserva
-        result = db.Reservas.insert_one(data)
-        return "Reserva creada con ID: " + str(result.inserted_id), 201  # 201 significa "Creado"
-    except Exception as e:
-        return str(e), 400  # 400 significa "Solicitud incorrecta"
+   try:
+    data = request.json  # Se espera un JSON con los datos de la reserva
+    result = db.Reservas.insert_one(data)
+    return {"success": True, "message": "Reserva creada con ID: " + str(result.inserted_id)}, 201
+   except Exception as e:
+    return str(e), 400  # 400 significa "Solicitud incorrecta"
+
 
 # Obtener una reserva por ID
 @app.route('/obtener_reserva/<id>', methods=['GET'])
