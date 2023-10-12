@@ -217,14 +217,33 @@ def crear_reserva():
     return str(e), 400  # 400 significa "Solicitud incorrecta"
 
 
-# Obtener una reserva por ID
-@app.route('/obtener_reserva/<id>', methods=['GET'])
-def obtener_reserva(id):
-    reserva = db.Reservas.find_one({"_id": id})
-    if reserva:
-        return jsonify(reserva), 200  # 200 significa "OK"
+# Obtener una reserva por ID usuario
+@app.route('/obtener_reservas/<id_usuario>', methods=['GET'])
+def obtener_reservas(id_usuario):
+    reservas = list(db.Reservas.find({"id_usuario": id_usuario}))
+
+    # Obtener información del libro para cada reserva y convertir los ObjectId a cadenas
+    reservas_con_info_libro = []
+    for reserva in reservas:
+        id_libro = reserva.get("id_libro")
+        libro = db.Libros.find_one({"_id": ObjectId(id_libro)})
+        if libro:
+            reserva["libro_info"] = {
+                "_id": str(libro["_id"]),  # Convertir el ObjectId a una cadena
+                "titulo": libro["titulo"],
+                "autor": libro["autor"],
+                "genero": libro["genero"],
+                "ano_publicacion": libro["ano_publicacion"],
+                "estado": libro["estado"]
+            }
+            reserva["id_libro"] = str(id_libro)
+            reserva["_id"] = str(reserva["_id"])  # Convertir el ObjectId de la reserva a una cadena
+            reservas_con_info_libro.append(reserva)
+
+    if reservas_con_info_libro:
+        return jsonify(reservas_con_info_libro), 200
     else:
-        return "Reserva no encontrada", 404  # 404 significa "No encontrada"
+        return "No se encontraron reservas para el usuario", 404
 
 # Actualizar una reserva por ID
 @app.route('/actualizar_reserva/<id>', methods=['PUT'])
