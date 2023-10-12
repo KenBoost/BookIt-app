@@ -10,7 +10,7 @@ const Login = ({ onClose, onRegisterClick }) => {
   const [contrasena, setContrasena] = useState('');
   
   const navigate = useNavigate(); //para redireccionar a otras paginas
-  const { setUser } = useUser(); // Obtiene la función para actualizar el usuario
+  const { setUser, setIsLoggedIn } = useUser(); // Obtiene la función para actualizar el usuario
 
   
   //Metodo que llama al Login del Backend
@@ -27,10 +27,11 @@ const Login = ({ onClose, onRegisterClick }) => {
       const response = await axios.post('http://localhost:5000/login', data);
 
       if (response.status === 200) {
-        console.log('Respuesta exitosa con código 200');
+        console.log('Respuesta exitosa holaaa');
         const usuario = response.data;
-        // Hacer algo con el usuario, como almacenarlo en el estado de tu aplicación
+        
         setUser(usuario);
+        setIsLoggedIn(true);
         console.log('Llamando a navigate');
         navigate('./profile');
 
@@ -51,7 +52,7 @@ const Login = ({ onClose, onRegisterClick }) => {
         </button>
         <h2>Iniciar Sesión</h2>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Usuario:</label>
+          <label htmlFor="username">Correo:</label>
           <input
             type="text"
             id="username"

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useUser } from '../UserProvider'; 
+import { Outlet, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import EditarLibroModal from './updatemodal';
 import "./index.scss";
@@ -9,6 +11,9 @@ const CRUD = () => {
   
   const [modalVisible, setModalVisible] = useState(false);
   const [bookToEdit, setBookToEdit] = useState(null);
+
+  const { user } = useUser();
+  const navigate = useNavigate();
 
   // Función para cargar la lista de libros desde la API
   const cargarLibros = async () => {
@@ -68,6 +73,8 @@ const CRUD = () => {
     setBookToEdit(bookId);
     setModalVisible(true);
   };
+
+  if (user && user.rol === 1) {  
   return (
     <div>
       <h2>Lista de Libros</h2>
@@ -151,6 +158,12 @@ const CRUD = () => {
       <button onClick={enviarNuevoLibro}>Agregar Libro</button>
     </div>
   );
+  } else {
+    // Redirigir a una página de acceso no autorizado u otra acción
+    navigate('/unauthorized');
+    return null;
+  }
+
 };
 
 export default CRUD;

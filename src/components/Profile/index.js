@@ -1,4 +1,4 @@
-const Perfil = () => {
+const Profile = () => {
     return (
       <div>
         <h1>Mi Perfil</h1>
@@ -11,4 +11,4 @@ const Perfil = () => {
     );
   };
   
-  export default Perfil;
+  export default Profile;

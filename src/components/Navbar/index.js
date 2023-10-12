@@ -1,16 +1,28 @@
 import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faUser, faRightToBracket, faCog} from '@fortawesome/free-solid-svg-icons';
 
-import { Link, NavLink } from 'react-router-dom'
+import { useUser } from '../UserProvider'; 
+
+import { NavLink } from 'react-router-dom'
 import Login from '../Login' // Importa el componente de inicio de sesión
 import Register from '../Register'
-import Profile from '../Profile'
 import './index.scss'
+import { useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
   const [showLogin, setShowLogin] = useState(false); // Estado para controlar la visibilidad del formulario de inicio de sesión
   const [showRegister, setShowRegister] = useState(false);
+  const navigate = useNavigate(); //para redireccionar a otras paginas
+
+  const { isLoggedIn, setUser, setIsLoggedIn } = useUser();
+
+  
+  const handleLogout = () => {
+    // ...otros pasos de logout...
+    setUser(null);
+    setIsLoggedIn(false);
+    navigate('./');
+  };
 
   const toggleLogin = () => {
     setShowLogin(!showLogin); // Alternar la visibilidad del formulario de inicio de sesión
@@ -29,22 +41,28 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li className="navbar-item">
-          <NavLink to="/crud" activeclassname="active">      
+          <NavLink to="/crud" activeclassname="active">
             Mantenimientos
           </NavLink>
         </li>
         <li className="navbar-item">
-          <NavLink to="/profile" activeclassname="active">  
+          <NavLink to="/profile" activeclassname="active">
             Perfil
           </NavLink>
         </li>
-        <li className="navbar-item">
-          <button onClick={toggleLogin}>         
-            Login
-          </button>
-        </li>
+        {isLoggedIn ? (
+          <li className="navbar-item">
+            <button onClick={handleLogout}>Logout</button>
+          </li>
+        ) : (
+          <li className="navbar-item">
+            <button onClick={toggleLogin}>Login</button>
+          </li>
+        )}
       </ul>
-      {showLogin && <Login onClose={toggleLogin} onRegisterClick={toggleRegister} />}
+      {showLogin && (
+        <Login onClose={toggleLogin} onRegisterClick={toggleRegister} />
+      )}
       {showRegister && <Register onClose={toggleRegister} />}
     </nav>
   );
