@@ -2,19 +2,22 @@ import './index.scss'
 
 import React, { useState } from 'react';
 
+
 const Register = ({ onClose }) => {
   const [formData, setFormData] = useState({
     newUsername: '',
     newEmail: '',
     newPassword: '',
   });
- 
+  
+  const [passwordError, setPasswordError] = useState('');
+
+
+
   const handleSubmit = async (e) => {
     
     console.log("probando")
     e.preventDefault();
-
-    // Realiza alguna validación de los datos del formulario si es necesario
 
     try {
       const response = await fetch('http://127.0.0.1:5000/crear_usuario',  {
@@ -50,6 +53,7 @@ const Register = ({ onClose }) => {
         <form onSubmit={handleSubmit}>
           <label htmlFor="newUsername">Nombre de Usuario:</label>
           <input
+           placeholder="Su nombre..."
             type="text"
             id="newUsername"
             name="newUsername"
@@ -58,6 +62,7 @@ const Register = ({ onClose }) => {
           />
           <label htmlFor="newEmail">Correo Electrónico:</label>
           <input
+            placeholder="Su Email..."
             type="text"
             id="newEmail"
             name="newEmail"
@@ -66,6 +71,7 @@ const Register = ({ onClose }) => {
           />
           <label htmlFor="newPassword">Nueva Contraseña:</label>
           <input
+            placeholder="Su Contraseña..."
             type="password"
             id="newPassword"
             name="newPassword"

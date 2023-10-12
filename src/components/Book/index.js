@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useUser } from '../UserProvider';
 import axios from "axios";
 import './index.scss'; 
+import Swal from 'sweetalert2';
 
 const Book = ({ bookTitle, bookId, onClose, onReserve, reloadBooks }) => {
   const [selectedDate, setSelectedDate] = useState(''); // Estado para almacenar la fecha seleccionada
@@ -41,6 +42,8 @@ const Book = ({ bookTitle, bookId, onClose, onReserve, reloadBooks }) => {
         clearBookData();
         reloadBooks();
         onClose();
+        Swal.fire('Éxito','Has reservado este libro!', 'success');
+
       } else {
         console.error('Error al crear la reserva');
       }

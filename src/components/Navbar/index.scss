@@ -4,14 +4,26 @@
   background: linear-gradient(90deg, rgba(1,15,22,1) 0%, rgba(40,80,70,1) 60%, rgba(1,92,68,1) 100%);
   border-bottom: 1px solid #BBBBBB;
   padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.navbar-logo {
+  
+  img {
+    width: 50px; /* Ajusta el ancho según tus preferencias */
+    height: auto; /* Ajusta la altura según tus preferencias */
+    margin-right: 10px;
+    /* Ajusta el margen derecho según tus preferencias */
+  }
+}
 /* Navbar list styles */
 .navbar-list {
   list-style: none;
   padding: 0;
   display: flex;
-  justify-content: right;
+  justify-content: center;
 }
 
 /* Navbar item styles */

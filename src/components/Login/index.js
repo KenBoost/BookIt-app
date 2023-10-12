@@ -33,8 +33,10 @@ const Login = ({ onClose, onRegisterClick }) => {
         setIsLoggedIn(true);   
         navigate('./profile');
         onClose();
+        Swal.fire('¡Bienvenido!', `Hola, ${usuario.nombre}! Has iniciado sesión exitosamente.`, 'success');
+
       } else {    
-        Swal('Error', 'No se pudo iniciar sesión, revise sus datos!', 'error');
+        Swal.fire('Error', 'No se pudo iniciar sesión, revise sus datos.', 'error');
       }
     } catch (error) {
       console.error('Error de red:', error);

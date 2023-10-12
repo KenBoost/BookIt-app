@@ -36,7 +36,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <h1 className="home-title">Libros disponibles en BookIt</h1>
+      <h1 className="home-title">Libros disponibles en librería</h1>
       <div className="card-container">
         {libros.map((libro) => (
           <div key={libro._id} className="card ">

@@ -3,6 +3,8 @@ import axios from "axios";
 import { useUser } from "../UserProvider"; // Asegúrate de importar el contexto adecuado
 import "./index.scss";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+
 
 const Profile = () => {
   const { user } = useUser();
@@ -20,6 +22,8 @@ const Profile = () => {
           console.log("Reserva cancelada con éxito");
           // Actualiza la lista de reservas para reflejar el nuevo estado
           cargarReservas();
+          Swal.fire('¡Mensaje!', `Ha cancelado su reserva del libro!.`, 'info');
+
         } else {
           console.error("Error al cancelar la reserva");
         }
@@ -39,6 +43,8 @@ const Profile = () => {
           console.log("Reserva finalizada con éxito");
           // Actualiza la lista de reservas para reflejar el nuevo estado
           cargarReservas();
+          Swal.fire('¡Mensaje!', `Ha finalizado su reserva del libro, gracias por leer con BookIt!`, 'success');
+
         } else {
           console.error("Error al finalizar la reserva");
         }

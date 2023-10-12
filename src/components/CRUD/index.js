@@ -6,6 +6,8 @@ import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import EditarLibroModal from './updatemodal';
 import "./index.scss";
+import Swal from 'sweetalert2';
+
 
 const CRUD = () => {
   const [libros, setLibros] = useState([]);
@@ -31,6 +33,8 @@ const CRUD = () => {
     try {
       await axios.post("http://localhost:5000/crear_libro", nuevoLibro); // Ajusta la URL de la API
       cargarLibros(); // Recarga la lista de libros después de agregar uno nuevo
+      Swal.fire('¡Mensaje!', `Un nuevo libro se ha agregado!.`, 'success');
+
     } catch (error) {
       console.error("Error al agregar un nuevo libro:", error);
     }
@@ -42,6 +46,8 @@ const CRUD = () => {
     try {
       await axios.delete(`http://localhost:5000/borrar_libro/${libroId}`);
       cargarLibros();
+      Swal.fire('¡Aviso!', `Libro eliminado de la base de datos!.`, 'success');
+
     } catch (error) {
       console.error('Error al eliminar el libro:', error);
     }
