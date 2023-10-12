@@ -1,28 +1,63 @@
 .profile-container {
-  padding: 20px;
+  
+  align-items: center;
+  padding: 15px;
 }
 
 .reserva-cards {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 15px;
   flex-wrap: wrap;
 }
 
 .reserva-card {
   border: 1px solid #ccc;
   border-radius: 5px;
-  padding: 15px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
   margin: 10px;
-  width: 300px; /* Ancho deseado de las tarjetas */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  background-color: #fff; /* Color de fondo de las tarjetas */
-  color: #333; /* Color del texto en las tarjetas */
-}
+  background-color: #fff;
+  width: 200px;
 
-.libro-info {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f5f5f5; /* Color de fondo para la información del libro */
-  color: #333; /* Color del texto para la información del libro */
+
+  p {
+    margin: 5px 0;
+    font-size: 1.3rem;
+  }
+
+  .libro-info {
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+    padding-top: 10px;
+
+    p {
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+  }
+
+  .botones-estado {
+    margin-top: 10px;
+
+    button {
+      margin: 5px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .cancelar-button {
+      background-color: #e57373;
+      color: white;
+    }
+
+    .finalizar-button {
+      background-color: #81c784;
+      color: white;
+    }
+  }
 }

@@ -58,7 +58,7 @@ const Book = ({ bookTitle, bookId, onClose, onReserve, reloadBooks }) => {
         </button>
         <h2>Reservar Libro:</h2>
         <h3>{bookTitle}</h3>
-        <p>ID del Libro: {bookId}</p>
+       
         <input
           type="date"
           value={selectedDate}

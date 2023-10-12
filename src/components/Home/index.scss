@@ -24,7 +24,7 @@
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 180px; // Ancho de cada tarjeta
+  width: 200px; // Ancho de cada tarjeta
   transition: transform 0.3s, box-shadow 0.3s;
   opacity: 1;
 
@@ -36,9 +36,10 @@
   }
 
   p {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     text-align: left;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+   
   }
 
   .reservar-button {

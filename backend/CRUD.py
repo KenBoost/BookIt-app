@@ -234,7 +234,7 @@ def crear_reserva():
  
     try:
         data = request.json  # Se espera un JSON con los datos de la reserva
-
+        data['estado'] = "activa"
         # Inserta la reserva en la base de datos
         result = db.Reservas.insert_one(data)
 
@@ -300,6 +300,40 @@ def actualizar_reserva(id):
             return "Reserva no encontrada", 404  # 404 significa "No encontrada"
     except Exception as e:
         return str(e), 400  # 400 significa "Solicitud incorrecta"
+
+@app.route('/actualizar_estado/<id>/<nuevo_estado>', methods=['PUT'])
+def actualizar_estado(id, nuevo_estado):
+    try:
+        # Asegúrate de validar que el nuevo_estado sea un valor permitido
+        # para evitar posibles ataques o cambios no deseados.
+        # Puedes utilizar una lista de estados permitidos.
+        estados_permitidos = ["activo", "cancelada", "finalizada"]  # Corregí "activa" a "activo" para que coincida con las opciones permitidas.
+
+        if nuevo_estado not in estados_permitidos:
+            return "Estado no válido", 400
+
+        # Convierte la cadena id en un ObjectId válido
+        object_id = ObjectId(id)
+
+        result = db.Reservas.update_one({"_id": object_id}, {"$set": {"estado": nuevo_estado}})
+        if result.modified_count > 0:
+            if nuevo_estado == "cancelada" or nuevo_estado == "finalizada":
+                reserva = db.Reservas.find_one({"_id": object_id})
+                if reserva:
+                    id_libro = reserva.get("id_libro")
+                    if id_libro:
+                        # Actualiza el estado del libro a "disponible"
+                        db.Libros.update_one({"_id": ObjectId(id_libro)}, {"$set": {"estado": "disponible"}})
+            
+            return "Reserva actualizada", 200  # 200 significa "OK"
+        else:
+            return "Reserva no encontrada", 404  # 404 significa "No encontrada"
+    except Exception as e:
+        return str(e), 400  # 400 significa "Solicitud incorrecta"
+
+
+
+
 
 # Borrar una reserva por ID
 @app.route('/borrar_reserva/<id>', methods=['DELETE'])
