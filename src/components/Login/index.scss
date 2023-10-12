@@ -55,26 +55,44 @@
       }
 
       button {
-        background: #007BFF;
+        background: #0466d0;
         color: #fff;
         padding: 10px;
         border: none;
+        width: 100%;
         cursor: pointer;
+        font-family: 'Coolvetica' !important;
+        font-weight: normal;
+        font-size: 1.7rem;
+      }
+
+      button:hover{
+          font-family: 'Coolvetica' !important;
+      font-weight: normal;
+        background: #28a745;
       }
     }
     button.register-button {
-      background: #007BFF; /* Cambia el color de fondo */
+      font-family: 'Coolvetica' !important;
+      font-weight: normal;
+      background: #0466d0; /* Cambia el color de fondo */
       color: #fff; /* Cambia el color del texto */
       padding: 10px;
       border: none;
       border-radius: 3px; /* Agrega bordes redondeados */
       cursor: pointer;
-      font-size: 1.5rem; /* Ajusta el tamaño del texto */
+      font-size: 1.6rem; /* Ajusta el tamaño del texto */
       transition: background-color 0.3s;
 
       &:hover {
         background: #45a049; /* Cambia el color de fondo al pasar el mouse */
       }
+    }
+
+    p{
+      font-family: 'Coolvetica' !important;
+      font-weight: normal;
+      font-size: 1.6rem;
     }
   }
 

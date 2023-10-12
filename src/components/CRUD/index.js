@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useUser } from '../UserProvider'; 
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import EditarLibroModal from './updatemodal';
 import "./index.scss";
 
 const CRUD = () => {
   const [libros, setLibros] = useState([]);
-  const [nuevoLibro, setNuevoLibro] = useState({ titulo: '', autor: '', genero: '', ano_publicacion: '', estado: '' });
-  
+  const [nuevoLibro, setNuevoLibro] = useState({ titulo: '', autor: '', genero: '', ano_publicacion:'', estado: '' });
   const [modalVisible, setModalVisible] = useState(false);
   const [bookToEdit, setBookToEdit] = useState(null);
 
@@ -51,15 +52,15 @@ const CRUD = () => {
     cargarLibros();
   }, []);
  
-
-
   //---------------------------------------------------------------------------
   //TODO LO DE EDITAR ----------------------------------
   //----------------------------------------------------------------------------
 
   const handleSaveEdit = (editedBook) => {
+    const { _id, ...editedBookWithoutId } = editedBook; // Quita el campo _id
+  
     axios
-      .put(`http://localhost:5000/actualizar_libro/${bookToEdit}`, editedBook)
+      .put(`http://localhost:5000/actualizar_libro/${bookToEdit}`, editedBookWithoutId)
       .then((response) => {
         setModalVisible(false);
         cargarLibros(); // Recarga la lista después de editar
@@ -79,49 +80,52 @@ const CRUD = () => {
     <div>
       <h2>Lista de Libros</h2>
       <div className="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Género</th>
-            <th>Año de Publicación</th>
-            <th>Disponibilidad</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {libros.map((libro) => (
-            <tr key={libro._id}>
-              <td>{libro.titulo}</td>
-              <td>{libro.autor}</td>
-              <td>{libro.genero}</td>
-              <td>{libro.ano_publicacion}</td>
-              <td>{libro.estado}</td>
-              <td>
-                <button onClick={() => handleEditClick(libro._id)}>
-                  Editar
-                </button>
-                <button onClick={() => eliminarLibro(libro._id)}>
-                  Eliminar
-                </button>
-              </td>
+        <table>
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Autor</th>
+              <th>Género</th>
+              <th>Año de Publicación</th>
+              <th>Disponibilidad</th>
+              <th>Acciones</th>
             </tr>
-          ))}       
-          
-        </tbody>       
-      </table>
+          </thead>
+          <tbody>
+            {libros.map((libro) => (
+              <tr key={libro._id}>
+                <td>{libro.titulo}</td>
+                <td>{libro.autor}</td>
+                <td>{libro.genero}</td>
+                <td>{libro.ano_publicacion}</td>
+                <td>{libro.estado}</td>
+                <td>
+                  <button
+                    className="botonescrud"
+                    onClick={() => handleEditClick(libro._id)}
+                  >
+                    <FontAwesomeIcon icon={faEdit} /> {/* Ícono de lápiz */}
+                  </button>
+                  <button
+                    className="botonescrud eliminar"
+                    onClick={() => eliminarLibro(libro._id)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} /> {/* Ícono de basurero */}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
       {modalVisible && (
-        <EditarLibroModal
-          libroId={bookToEdit}
-          onSave={(editedBook) => {
-            // Manejar la edición del libro aquí
-            setModalVisible(false); // Cierra el modal después de editar
-          }}
-          onClose={() => setModalVisible(false)} // Cierra el modal
+         <EditarLibroModal
+         libroId={bookToEdit}
+         onSave={handleSaveEdit}
+         onClose={() => setModalVisible(false)}
         />
       )}
+      <div className="nuevolibro">
       <h2>Agregar Nuevo Libro</h2>
       <input
         type="text"
@@ -155,13 +159,14 @@ const CRUD = () => {
           setNuevoLibro({ ...nuevoLibro, ano_publicacion: e.target.value })
         }
       />
-      <button onClick={enviarNuevoLibro}>Agregar Libro</button>
+      <button className="agregar" onClick={enviarNuevoLibro}>Agregar Libro</button>
+      </div>
     </div>
   );
   } else {
     // Redirigir a una página de acceso no autorizado u otra acción
     navigate('/unauthorized');
-    return null;
+    //return null;
   }
 
 };

@@ -7,7 +7,7 @@ body {
   margin: 0;
   font: 300 11px/1.4 'Helvetica Neue', sans-serif !important;
   color: #444;
-  background: whitesmoke;
+  background: rgb(233, 233, 233);
   overflow-y: auto;
   overflow: auto;
   display: block;

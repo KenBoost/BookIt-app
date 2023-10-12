@@ -2,10 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useUser } from "../UserProvider"; // Asegúrate de importar el contexto adecuado
 import "./index.scss";
+import { useNavigate } from 'react-router-dom';
+
 
 const Profile = () => {
   const { user } = useUser();
   const [reservas, setReservas] = useState([]);
+ 
+  const navigate = useNavigate();
 
   const handleCancelarReserva = (reservaId) => {
     // Realiza una solicitud para actualizar el estado de la reserva a "cancelada"
@@ -72,7 +76,8 @@ const Profile = () => {
         });
     }
   }, [user]); // Asegúrate de incluir user como dependencia para volver a cargar las reservas cuando cambia el usuario
-
+ 
+  if (user && (user.rol === 1 || user.rol === 2)) {
   return (
     <div className="profile-container">
       <h2>Registro de sus Libros</h2>
@@ -114,6 +119,11 @@ const Profile = () => {
       </div>
     </div>
   );
+} else {
+  // Redirigir a una página de acceso no autorizado u otra acción
+  navigate('/unauthorized');
+  //return null;
+}
 };
 
 export default Profile;

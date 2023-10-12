@@ -1,7 +1,7 @@
 /* Navbar styles */
 .navbar {
   background: rgb(1,15,22);
-background: linear-gradient(90deg, rgba(1,15,22,1) 0%, rgba(40,80,70,1) 60%, rgba(1,92,68,1) 100%);
+  background: linear-gradient(90deg, rgba(1,15,22,1) 0%, rgba(40,80,70,1) 60%, rgba(1,92,68,1) 100%);
   border-bottom: 1px solid #BBBBBB;
   padding: 5px 10px;
 }
@@ -17,13 +17,38 @@ background: linear-gradient(90deg, rgba(1,15,22,1) 0%, rgba(40,80,70,1) 60%, rgb
 /* Navbar item styles */
 .navbar-item {
   text-align: left;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-family: 'Coolvetica' !important;
+    font-weight: 300;
 
-  // Icon styles
-  .svg-inline--fa {
-    font-size: 1.5rem; // Tamaño del ícono
-    margin-bottom: 5px;
+  .botonlog{
+    font-family: 'Coolvetica' !important;
+    font-weight: normal;
+    font-size: 1.8rem;
+    background: white;
+    color: black;
   }
 
+  .botonlog:hover{
+    background: rgb(89, 108, 220);
+    color: white;
+   
+  }
+
+  .botonlogout{
+    font: 300  'Helvetica Neue', sans-serif !important;
+    font-size: 1.8rem;
+    background: white;
+    color: black;
+  }
+
+  .botonlogout:hover{
+    background: rgb(89, 108, 220);
+    color: white;
+   
+  }
   // Active link styles
   &.active {
     border-bottom: 2px solid #fff; // Línea inferior para el enlace activo
@@ -31,17 +56,15 @@ background: linear-gradient(90deg, rgba(1,15,22,1) 0%, rgba(40,80,70,1) 60%, rgb
 
   // Hover effect
   a:hover {
-    transform: scale(1.5);
+ 
     color: white;
   }
 
   // Estilo del enlace
   a {
     color: #dedede; // Color del enlace (blanco)
-    font-size: 2rem; // Tamaño de letra mediano
+    font-size: 2.3rem; // Tamaño de letra mediano
     text-decoration: none;
-
-
   }
 
   // Padding and margin for items

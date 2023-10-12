@@ -7,7 +7,7 @@ const EditarLibroModal = ({ libroId, onSave, onClose }) => {
     titulo: '',
     autor: '',
     genero: '',
-    ano_publicacion: '',
+    ano_publicacion: 0,
     estado: '',
   });
 
@@ -58,7 +58,7 @@ const EditarLibroModal = ({ libroId, onSave, onClose }) => {
         />
         <label>Año de Publicación:</label>
         <input
-          type="text"
+          type="number"
           value={editedBook.ano_publicacion}
           onChange={(e) => setEditedBook({ ...editedBook, ano_publicacion: e.target.value })}
         />

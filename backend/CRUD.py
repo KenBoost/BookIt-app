@@ -131,6 +131,7 @@ def obtener_libros():
             "estado": libro["estado"]
         }
         libros_serializables.append(libro_serializable)
+        libros_serializables.reverse()
     
     return jsonify(libros_serializables), 200  # Devuelve el objeto JSON con el total y la lista de libros serializables
 
@@ -163,6 +164,7 @@ def crear_libro():
     try:
         data = request.json  # Se espera un JSON con los datos del libro
         data['estado'] = "disponible" # Configurar manualmente el rol como 2
+        print(f"Creando libro con ID: Datos recibidos: {data}")
         result = db.Libros.insert_one(data)
         return "Libro creado con ID: " + str(result.inserted_id), 201  # 201 significa "Creado"
     except Exception as e:
@@ -192,6 +194,8 @@ def actualizar_libro(id):
         
         # Convierte el ID de cadena a ObjectId
         object_id = ObjectId(id)
+        print(f"Actualizando libro con ID: {object_id}, Datos recibidos: {data}")
+
         
         # Intenta actualizar el libro con el ID proporcionado
         result = db.Libros.update_one({"_id": object_id}, {"$set": data})
@@ -199,7 +203,11 @@ def actualizar_libro(id):
         if result.modified_count > 0:
             return "Libro actualizado", 200  # 200 significa "OK"
         else:
-            return "Libro no encontrado", 404  # 404 significa "No encontrado"
+            error_message = "Libro no encontrado"
+            if "upserted" in result.raw_result:
+               error_message = "No se encontró ningún libro para actualizar."
+
+               return error_message, 404  # 404 significa "No encontrado"
     except Exception as e:
         return str(e), 400  # 400 significa "Solicitud incorrecta"
 
@@ -330,10 +338,6 @@ def actualizar_estado(id, nuevo_estado):
             return "Reserva no encontrada", 404  # 404 significa "No encontrada"
     except Exception as e:
         return str(e), 400  # 400 significa "Solicitud incorrecta"
-
-
-
-
 
 # Borrar una reserva por ID
 @app.route('/borrar_reserva/<id>', methods=['DELETE'])

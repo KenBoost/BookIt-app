@@ -34,37 +34,40 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <ul className="navbar-list">
-        <li className="navbar-item">
-          <NavLink to="/" activeclassname="active">
-            Inicio
-          </NavLink>
-        </li>
+    <ul className="navbar-list">
+      <li className="navbar-item">
+        <NavLink to="/" activeclassname="active">
+          Inicio
+        </NavLink>
+      </li>
+      {isLoggedIn && (
         <li className="navbar-item nav-link-ltr">
           <NavLink to="/crud" activeclassname="active">
             Mantenimientos
           </NavLink>
         </li>
+      )}
+      {isLoggedIn && (
         <li className="navbar-item">
           <NavLink to="/profile" activeclassname="active">
             Perfil
           </NavLink>
         </li>
-        {isLoggedIn ? (
-          <li className="navbar-item">
-            <button onClick={handleLogout}>Logout</button>
-          </li>
-        ) : (
-          <li className="navbar-item">
-            <button onClick={toggleLogin}>Login</button>
-          </li>
-        )}
-      </ul>
-      {showLogin && (
-        <Login onClose={toggleLogin} onRegisterClick={toggleRegister} />
       )}
-      {showRegister && <Register onClose={toggleRegister} />}
-    </nav>
+      <li className="navbar-item">
+        {isLoggedIn ? (
+          <button className='botonlogout' onClick={handleLogout}>Logout</button>
+        ) : (
+          <button className='botonlog' onClick={toggleLogin}>Login</button>
+        )}
+      </li>
+    </ul>
+    {showLogin && (
+      <Login onClose={toggleLogin} onRegisterClick={toggleRegister} />
+    )}
+    {showRegister && <Register onClose={toggleRegister} />}
+  </nav>
+  
   );
 };
 

@@ -51,6 +51,7 @@ const Login = ({ onClose, onRegisterClick }) => {
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Correo:</label>
           <input
+            placeholder="Email..."
             type="text"
             id="username"
             name="username"
@@ -60,6 +61,7 @@ const Login = ({ onClose, onRegisterClick }) => {
           <label htmlFor="password">Contraseña:</label>
           <input
             type="password"
+            placeholder="Contraseña..."
             id="password"
             name="password"
             value={contrasena}
