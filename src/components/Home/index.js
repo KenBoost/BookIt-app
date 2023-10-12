@@ -1,11 +1,13 @@
 
 import React, { useState, useEffect } from "react";
+import { useUser } from '../UserProvider'; 
 import axios from "axios";
 import './index.scss'
 
 const Home = () => {
   const [libros, setLibros] = useState([]);
-
+  
+  const { isLoggedIn } = useUser();
   // Función para cargar la lista de libros desde la API
   const cargarLibros = async () => {
     try {
@@ -25,14 +27,20 @@ const Home = () => {
     <div className="home-container">
       <h1 className="home-title">Libros disponibles en BookIt</h1>
       <div className="card-container">
-        {libros.map((libro) => (
+        {libros.map((libro) => (          
           <div key={libro._id} className="card">
+  
             <h3>{libro.titulo}</h3>
             <p>Autor: {libro.autor}</p>
             <p>Género: {libro.genero}</p>
             <p>Año de Publicación: {libro.ano_publicacion}</p>
             <p>Estado: {libro.estado}</p>
-            <button className="reservar-button">Reservar</button>
+            <br></br>
+            {isLoggedIn ? (
+              <button className="reservar-button">Reservar</button>
+            ):(
+              <p>Inicie sesión para reservar!</p>
+            )}      
           </div>
         ))}
       </div>

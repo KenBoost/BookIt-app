@@ -40,7 +40,7 @@ const Navbar = () => {
             Inicio
           </NavLink>
         </li>
-        <li className="navbar-item">
+        <li className="navbar-item nav-link-ltr">
           <NavLink to="/crud" activeclassname="active">
             Mantenimientos
           </NavLink>

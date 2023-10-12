@@ -1,0 +1,62 @@
+.reserve-book-modal {
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  
+    .modal-content {
+      background: #313131;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+  
+      .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        border: none;
+        background: none;
+        padding: 0;
+        outline: none;
+      }
+  
+      h2 {
+        font-size: 24px;
+        margin: 0 0 15px;
+      }
+  
+      p {
+        font-size: 16px;
+        margin: 0 0 10px;
+      }
+  
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+  
+      .modal-buttons {
+        button {
+          margin: 0 10px;
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  

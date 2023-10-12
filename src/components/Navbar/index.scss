@@ -1,8 +1,9 @@
 /* Navbar styles */
 .navbar {
-  background-color: #333; // Color de fondo de la barra de navegación
-  color: #fff; // Color del texto
-  padding: 10px 20px;
+  background: rgb(1,15,22);
+background: linear-gradient(90deg, rgba(1,15,22,1) 0%, rgba(40,80,70,1) 60%, rgba(1,92,68,1) 100%);
+  border-bottom: 1px solid #BBBBBB;
+  padding: 5px 10px;
 }
 
 /* Navbar list styles */
@@ -10,12 +11,12 @@
   list-style: none;
   padding: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: right;
 }
 
 /* Navbar item styles */
 .navbar-item {
-  text-align: center;
+  text-align: left;
 
   // Icon styles
   .svg-inline--fa {
@@ -30,21 +31,23 @@
 
   // Hover effect
   a:hover {
-    color: rgb(16, 154, 151); // Cambiar color del texto al pasar el mouse
+    transform: scale(1.5);
+    color: white;
   }
 
   // Estilo del enlace
   a {
-    color: #fff; // Color del enlace (blanco)
+    color: #dedede; // Color del enlace (blanco)
     font-size: 2rem; // Tamaño de letra mediano
     text-decoration: none;
-    font-weight: bold;
+
+
   }
 
   // Padding and margin for items
   padding: 10px;
   margin: 0 5px;
 
-  // Transition for smooth animation
-  transition: color 0.3s, border-bottom 0.3s;
 }
+
+

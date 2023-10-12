@@ -16,6 +16,7 @@
   gap: 20px; // Espacio entre las tarjetas
   justify-content: center;
   max-width: 80%;
+  
 }
 .card {
   background-color: #fff;
@@ -23,7 +24,7 @@
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 200px; // Ancho de cada tarjeta
+  width: 180px; // Ancho de cada tarjeta
   transition: transform 0.3s, box-shadow 0.3s;
   opacity: 1;
 
@@ -31,10 +32,13 @@
   h3 {
     font-size: 20px;
     margin: 0;
+    margin-bottom: 2%;
   }
 
   p {
-    margin: 0;
+    font-size: 1.3rem;
+    text-align: left;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
 
   .reservar-button {
