@@ -134,6 +134,27 @@ def obtener_libros():
     
     return jsonify(libros_serializables), 200  # Devuelve el objeto JSON con el total y la lista de libros serializables
 
+@app.route('/libros_disponibles', methods=['GET'])
+def obtener_libros_disponibles():
+    libros_disponibles = list(db.Libros.find({"estado": "disponible"}))
+
+    # Convertir objetos BSON a diccionarios
+    libros_serializables = []
+    for libro in libros_disponibles:
+        libro_serializable = {
+            "_id": str(libro["_id"]),  # Convertir el ObjectId a una cadena
+            "titulo": libro["titulo"],
+            "autor": libro["autor"],
+            "genero": libro["genero"],
+            "ano_publicacion": libro["ano_publicacion"],
+            "estado": libro["estado"]
+        }
+        libros_serializables.append(libro_serializable)
+
+    if libros_disponibles:
+        return jsonify(libros_serializables), 200  # Devuelve la lista de libros serializables
+    else:
+        return "No se encontraron libros disponibles", 404  # 404 significa "No encontrado"
 
 
 # Crear un libro
@@ -183,6 +204,7 @@ def actualizar_libro(id):
         return str(e), 400  # 400 significa "Solicitud incorrecta"
 
 
+
 # Borrar un libro por ID
 @app.route('/borrar_libro/<id>', methods=['DELETE'])
 def borrar_libro(id):
@@ -209,12 +231,33 @@ def borrar_libro(id):
 # Crear una reserva
 @app.route('/crear_reserva', methods=['POST'])
 def crear_reserva():
-   try:
-    data = request.json  # Se espera un JSON con los datos de la reserva
-    result = db.Reservas.insert_one(data)
-    return {"success": True, "message": "Reserva creada con ID: " + str(result.inserted_id)}, 201
-   except Exception as e:
-    return str(e), 400  # 400 significa "Solicitud incorrecta"
+ 
+    try:
+        data = request.json  # Se espera un JSON con los datos de la reserva
+
+        # Inserta la reserva en la base de datos
+        result = db.Reservas.insert_one(data)
+
+        # Verifica si la inserción de la reserva fue exitosa
+        if result.inserted_id:
+            # Obten el ID del libro desde los datos de la reserva
+            id_libro = data.get("id_libro")
+
+            # Convierte el ID del libro de cadena a ObjectId
+            object_id_libro = ObjectId(id_libro)
+
+            # Actualiza el estado del libro a "reservado"
+            result_libro = db.Libros.update_one({"_id": object_id_libro}, {"$set": {"estado": "reservado"}})
+
+            # Verifica si la actualización del estado del libro fue exitosa
+            if result_libro.modified_count > 0:
+                return {"success": True, "message": "Reserva creada con ID: " + str(result.inserted_id)}, 201
+            else:
+                return "Libro no encontrado", 404  # 404 significa "No encontrado"
+        else:
+            return "Reserva no creada", 400  # 400 significa "Solicitud incorrecta"
+    except Exception as e:
+        return str(e), 400  # 400 significa "Solicitud incorrecta"
 
 
 # Obtener una reserva por ID usuario

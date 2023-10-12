@@ -15,7 +15,7 @@ const Home = () => {
   // Función para cargar la lista de libros desde la API
   const cargarLibros = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/obtener_libros"); // Ajusta la URL de la API
+      const response = await axios.get("http://localhost:5000/libros_disponibles"); // Ajusta la URL de la API
       setLibros(response.data);
     } catch (error) {
       console.error("Error al cargar la lista de libros:", error);
@@ -38,22 +38,32 @@ const Home = () => {
     <div className="home-container">
       <h1 className="home-title">Libros disponibles en BookIt</h1>
       <div className="card-container">
-        {libros.map((libro) => (          
+        {libros.map((libro) => (
           <div key={libro._id} className="card ">
-  
             <h3>{libro.titulo}</h3>
             <p>Autor: {libro.autor}</p>
             <p>Género: {libro.genero}</p>
             <p>Año de Publicación: {libro.ano_publicacion}</p>
             <p>Estado: {libro.estado}</p>
-            <br></br>        
-              <button  onClick={() => toggleBook(libro.titulo, libro._id)} className="reservar-button">Reservar</button>
+            {isLoggedIn ? ( 
+              <button
+                onClick={() => toggleBook(libro.titulo, libro._id)}
+                className="reservar-button"
+              >
+                Reservar
+              </button>
+            ) : (
               <p>Inicie sesión para reservar!</p>
-              {showBook && (
-              <Book bookTitle={selectedBook.title} bookId={selectedBook.id} onClose={toggleBook} />
-
-              )} 
-          </div>      
+            )}
+            {showBook && (
+              <Book
+                bookTitle={selectedBook.title}
+                bookId={selectedBook.id}
+                onClose={toggleBook}
+                reloadBooks={cargarLibros} // Pasa la función para recargar libros
+              />
+            )}
+          </div>
         ))}
       </div>
     </div>

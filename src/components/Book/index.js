@@ -3,7 +3,7 @@ import { useUser } from '../UserProvider';
 import axios from "axios";
 import './index.scss'; 
 
-const Book = ({ bookTitle, bookId, onClose, onReserve }) => {
+const Book = ({ bookTitle, bookId, onClose, onReserve, reloadBooks }) => {
   const [selectedDate, setSelectedDate] = useState(''); // Estado para almacenar la fecha seleccionada
   const { user } = useUser();
 
@@ -39,6 +39,7 @@ const Book = ({ bookTitle, bookId, onClose, onReserve }) => {
         // Si la reserva se crea exitosamente, puedes realizar alguna acción, como mostrar un mensaje al usuario.
         console.log('Reserva exitosa');
         clearBookData();
+        reloadBooks();
         onClose();
       } else {
         console.error('Error al crear la reserva');
