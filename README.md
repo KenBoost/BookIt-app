@@ -17,7 +17,7 @@ client = MongoClient("mongodb://127.0.0.1:27017/")
 db = client['libreria-bookit']
 
 
-Usuarios que poseen cuenta 
+Usuarios que poseen cuenta en la app
 
 ADMIN correo:admin@gmail.com clave:admin123@
 
