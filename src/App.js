@@ -14,8 +14,7 @@ function App() {
   return (
     <UserProvider>
     <Router>
-      <Routes>
-       
+      <Routes>     
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/crud" element={<CRUD />} />

@@ -309,6 +309,8 @@ def actualizar_reserva(id):
     except Exception as e:
         return str(e), 400  # 400 significa "Solicitud incorrecta"
 
+
+#Actualiza el estado de la reserva al usuario decidir
 @app.route('/actualizar_estado/<id>/<nuevo_estado>', methods=['PUT'])
 def actualizar_estado(id, nuevo_estado):
     try:
@@ -338,6 +340,8 @@ def actualizar_estado(id, nuevo_estado):
             return "Reserva no encontrada", 404  # 404 significa "No encontrada"
     except Exception as e:
         return str(e), 400  # 400 significa "Solicitud incorrecta"
+
+
 
 # Borrar una reserva por ID
 @app.route('/borrar_reserva/<id>', methods=['DELETE'])
