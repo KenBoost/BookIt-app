@@ -31,7 +31,7 @@ const CRUD = () => {
   // Función para manejar el envío de un nuevo libro
   const enviarNuevoLibro = async () => {
     try {
-      await axios.post("http://localhost:5000/crear_libro", nuevoLibro); // Ajusta la URL de la API
+      await axios.post("http://localhost:5000/crear_libro", nuevoLibro); 
       cargarLibros(); // Recarga la lista de libros después de agregar uno nuevo
       Swal.fire('¡Mensaje!', `Un nuevo libro se ha agregado!.`, 'success');
 

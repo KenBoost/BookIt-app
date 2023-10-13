@@ -44,13 +44,13 @@ def crear_usuario():
     try:
         data = request.json  # Se espera un JSON con los datos del usuario
 
-        # Asegúrate de tener una copia del JSON original antes de eliminar la contraseña normal
+        #  copia del JSON original antes de eliminar la contraseña normal
         data_original = data.copy()
 
-        # Elimina la contraseña normal del JSON
+        # Elimina la contraseña 
         del data['contrasena']
 
-        password = data_original['contrasena']  # Obtén la contraseña del JSON original
+        password = data_original['contrasena']  # contraseña del JSON original
 
         # Encripta la contraseña
         salt = bcrypt.gensalt()
@@ -61,7 +61,7 @@ def crear_usuario():
         result = db.Usuarios.insert_one(data)
         return "Usuario creado con ID: " + str(result.inserted_id), 201  # 201 significa "Creado"
     except Exception as e:
-        return str(e), 400  # 400 significa "Solicitud incorrecta"
+        return str(e), 400  # "Solicitud incorrecta"
 
 
 # Obtener un usuario por ID
@@ -84,7 +84,7 @@ def actualizar_usuario(id):
     try:
         data = request.json  # Se espera un JSON con los datos actualizados del usuario
         
-        # Obtén la contraseña nueva del JSON
+        # contraseña nueva del JSON
         new_password = data['contrasena']
         
         # Encripta la nueva contraseña
@@ -95,9 +95,9 @@ def actualizar_usuario(id):
         if result.modified_count > 0:
             return "Usuario actualizado", 200  # 200 significa "OK"
         else:
-            return "Usuario no encontrado", 404  # 404 significa "No encontrado"
+            return "Usuario no encontrado", 404  # "No encontrado"
     except Exception as e:
-        return str(e), 400  # 400 significa "Solicitud incorrecta"
+        return str(e), 400  # "Solicitud incorrecta"
 
 
 # Borrar un usuario por ID
@@ -107,7 +107,7 @@ def borrar_usuario(id):
     if result.deleted_count > 0:
         return "Usuario borrado", 200  # 200 significa "OK"
     else:
-        return "Usuario no encontrado", 404  # 404 significa "No encontrado"
+        return "Usuario no encontrado", 404  # "No encontrado"
 
 ##-----------------------------------------------------------------------------------
 ## LIBROS----------------------------------------------------------------------------
@@ -116,7 +116,7 @@ def borrar_usuario(id):
 # Obtener todos los libros
 @app.route('/obtener_libros', methods=['GET'])
 def obtener_libros():
-    libros = list(db.Libros.find({}))  # Encuentra todos los documentos en la colección de libros
+    libros = list(db.Libros.find({}))  
     total_libros = len(libros)
     
     # Convertir objetos BSON a diccionarios
@@ -155,7 +155,7 @@ def obtener_libros_disponibles():
     if libros_disponibles:
         return jsonify(libros_serializables), 200  # Devuelve la lista de libros serializables
     else:
-        return "No se encontraron libros disponibles", 404  # 404 significa "No encontrado"
+        return "No se encontraron libros disponibles", 404  
 
 
 # Crear un libro
@@ -179,9 +179,9 @@ def obtener_libro(id):
         if libro:
             # Convierte el ObjectId a una cadena antes de incluirlo en la respuesta JSON
             libro["_id"] = str(libro["_id"])
-            return jsonify(libro), 200  # 200 significa "OK"
+            return jsonify(libro), 200  
         else:
-            return "Libro no encontrado", 404  # 404 significa "No encontrado"
+            return "Libro no encontrado", 404  
     except Exception as e:
         return str(e), 400  # 400 significa "Solicitud incorrecta"
 
